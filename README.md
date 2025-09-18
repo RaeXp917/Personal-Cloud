@@ -1,24 +1,35 @@
-# Personal Cloud: Seafile + Cloudflare Tunnel
+## Personal Cloud (Seafile + Cloudflare Tunnel)
 
-**Stack:** Docker (Windows 11), Seafile CE, MariaDB, Memcached, Cloudflare Tunnel, custom Windows Service / Scheduled Task.
+Self-hosted cloud storage running on Windows 11 with Docker, fronted by a Cloudflare Tunnel for secure remote access.
+
+## Stack
+
+Docker Compose (Windows 11)
+
+Seafile CE for file sync + web UI
+
+MariaDB + Memcached for backend performance
+
+Cloudflare Tunnel for HTTPS + domain access
+
+Windows Scheduled Task for autostart
 
 ## Why
-Private “cloud vault” with fast file sync and web access from anywhere, without opening router ports.
+
+I wanted a private Dropbox-style cloud: fast file sync, web access anywhere, and no need to expose router ports.
 
 ## Architecture
-- Docker Compose: `seafile`, `mariadb`, `memcached`
-- Cloudflare Tunnel → `localhost:8080` (nginx in Seafile container)
-- and a personal domain
+
+Containers: seafile, mariadb, memcached
+
+Cloudflare Tunnel → localhost:8080 (nginx in Seafile container)
+
+Custom domain secured end-to-end with HTTPS
 
 ## Highlights
-- HTTPS end-to-end via Cloudflare
-- CSRF / proxy headers fixed in `seahub_settings.py`
-- Autostart: Scheduled Task runs `docker compose up -d` on login
 
-## Redacted Config
-See `docker-compose.yml.example` and `.env.example` for how to wire secrets safely.
+Secure: CSRF + proxy headers fixed in seahub_settings.py
 
-## Notes
-- Never commit real passwords/tokens.
-- Use `.env` locally; keep it out of git (add to `.gitignore`).
-# Personal-Cloud
+Resilient: Auto-restart with restart: unless-stopped
+
+Convenient: Autostart on login (docker compose up -d) via Windows Task Scheduler
