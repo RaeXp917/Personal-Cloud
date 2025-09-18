@@ -8,7 +8,7 @@ Private “cloud vault” with fast file sync and web access from anywhere, with
 ## Architecture
 - Docker Compose: `seafile`, `mariadb`, `memcached`
 - Cloudflare Tunnel → `localhost:8080` (nginx in Seafile container)
-- Domain: `cloud.e-efimerevon.gr` (Full Strict TLS)
+- and a personal domain
 
 ## Highlights
 - HTTPS end-to-end via Cloudflare
